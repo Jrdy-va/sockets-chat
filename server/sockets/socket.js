@@ -42,12 +42,15 @@ io.on('connection', (client) => {
     
     })
 
-    client.on('notificarMensaje', ( data ) => {
+    client.on('notificarMensaje', ( data, callback ) => {
 
         let persona = usuario.getPersonaById( client.id )
 
         let mensaje = crearMensaje(persona.nombre, data.mensaje)
         client.broadcast.to(persona.sala).emit('notificarMensaje', mensaje)
+
+        callback (mensaje)
+
     })
 
     //mensaje dirigido

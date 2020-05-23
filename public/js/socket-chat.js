@@ -17,7 +17,7 @@ socket.on('connect', function() {
 
     socket.emit('entrarChat', usuario , function ( resp ) {
         console.log( 'Usuario conectados ', resp);
-        
+        renderizarUsuarios(resp )
     })
 
 });
@@ -38,11 +38,14 @@ socket.on('disconnect', function() {
 // Escuchar información del admin
 socket.on('notificarMensaje', function(mensaje) {
     console.log('Servidor:', mensaje);
+    renderizarMensajes(mensaje, false)
+    scrollBottom()
 });
 
 // Listado final de usuarios en la sala despues de un evento
 socket.on('groupDetail', function( listPersonsInGroup ) {
     console.log('Usuarios conectados : ', listPersonsInGroup);
+    renderizarUsuarios( listPersonsInGroup )
 });
 
 // mensajes a una persona 
